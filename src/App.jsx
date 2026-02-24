@@ -1,39 +1,198 @@
-
-import React from 'react';
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate } from
-'react-router-dom';
-import { Dashboard } from './pages/Dashboard';
-import { Users } from './pages/Users';
-import { Properties } from './pages/Properties';
-import { Listings } from './pages/Listings';
-import { Bookings } from './pages/Bookings';
-import { Payments } from './pages/Payments';
-import { Verifications } from './pages/Verifications';
-import { AuditLogs } from './pages/AuditLogs';
-import { Settings } from './pages/Settings';
+  Navigate,
+} from "react-router-dom";
+
+import { useAuth } from "./components/context/AuthContext";
+
+import { Dashboard } from "./pages/Dashboard";
+import { Users } from "./pages/Users";
+import { Properties } from "./pages/Properties";
+import { Listings } from "./pages/Listings";
+import { Bookings } from "./pages/Bookings";
+import { Payments } from "./pages/Payments";
+import { Verifications } from "./pages/Verifications";
+import { AuditLogs } from "./pages/AuditLogs";
+import { Settings } from "./pages/Settings";
+import RecentActivities from "./pages/RecentActivities";
+import AdminPlans from "./pages/Plans";
+import Login from "./pages/login";
+
+/* ----------------------------- */
+/* Route Guards                  */
+/* ----------------------------- */
+
+function PrivateRoute({ children }) {
+  const { isAuthenticated, loading } = useAuth();
+
+  // if (loading) return null;
+  if (loading) return <div className="min-h-screen flex justify-center items-center">Loading...</div>;
+
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
+}
+
+function PublicRoute({ children }) {
+  const { isAuthenticated, loading } = useAuth();
+
+  // if (loading) return null;
+  if (loading) return <div className="min-h-screen flex justify-center items-center">Loading...</div>;
+
+  return isAuthenticated ? <Navigate to="/" replace /> : children;
+}
+
+/* ----------------------------- */
+/* App                           */
+/* ----------------------------- */
 
 export function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/properties" element={<Properties />} />
-        <Route path="/listings" element={<Listings />} />
-        <Route path="/bookings" element={<Bookings />} />
-        <Route path="/payments" element={<Payments />} />
-        <Route path="/orders" element={<Payments />} />
-        <Route path="/verifications" element={<Verifications />} />
-        <Route path="/products" element={<Listings />} />
-        <Route path="/audit-logs" element={<AuditLogs />} />
-        <Route path="/reports" element={<Dashboard />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Router>);
 
+        {/* Public */}
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+
+        {/* Protected Routes */}
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/users"
+          element={
+            <PrivateRoute>
+              <Users />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/properties"
+          element={
+            <PrivateRoute>
+              <Properties />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/listings"
+          element={
+            <PrivateRoute>
+              <Listings />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/bookings"
+          element={
+            <PrivateRoute>
+              <Bookings />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/payments"
+          element={
+            <PrivateRoute>
+              <Payments />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/orders"
+          element={
+            <PrivateRoute>
+              <Payments />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/verifications"
+          element={
+            <PrivateRoute>
+              <Verifications />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/products"
+          element={
+            <PrivateRoute>
+              <Listings />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/audit-logs"
+          element={
+            <PrivateRoute>
+              <AuditLogs />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/reports"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/settings"
+          element={
+            <PrivateRoute>
+              <Settings />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/recent"
+          element={
+            <PrivateRoute>
+              <RecentActivities />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/plans"
+          element={
+            <PrivateRoute>
+              <AdminPlans />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Catch-all */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+
+      </Routes>
+    </Router>
+  );
 }

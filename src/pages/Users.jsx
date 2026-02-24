@@ -142,17 +142,32 @@ export function Users() {
       header: 'verifications',
       accessorKey: 'security_checks',
       sector: 'security_checks',
-      cell: (row) => (
-        row.security_checks && row.security_checks.status === 'verified' ? (
-          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-            Verified
-          </span>
-        ) : (
-          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
-            Pending
-          </span>
-        )
-      )
+cell: (row) => {
+  const status = row.security_checks?.[0]?.status;
+
+  if (status === 'verified') {
+    return (
+      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+        Verified
+      </span>
+    );
+  }
+
+  if (status === 'unverified') {
+    return (
+      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+        Unverified
+      </span>
+    );
+  }
+
+  return (
+    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
+      Pending
+    </span>
+  );
+}
+
     },
     { header: 'Joined', accessorKey: 'joined', className: 'text-slate-500' }
   ];
