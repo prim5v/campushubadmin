@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const verify = async () => {
       try {
-        const res = await Api.get("/auth/profile");
+        const res = await Api.get("/auth/profie");
         setUser(res?.user || null);
       } catch (err) {
         // setUser(null); // unauthorized
