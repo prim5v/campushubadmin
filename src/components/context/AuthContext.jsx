@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
         const res = await Api.get("/auth/profie");
         setUser(res?.user || null);
       } catch (err) {
-        // setUser(null); // unauthorized
+        // setUser(null); // unauthorizeda
       } finally {
         setLoading(false); // important: stop loading so UI knows auth check is done
       }

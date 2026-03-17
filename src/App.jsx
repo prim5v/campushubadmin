@@ -20,6 +20,7 @@ import { Settings } from "./pages/Settings";
 import RecentActivities from "./pages/RecentActivities";
 import AdminPlans from "./pages/Plans";
 import Login from "./pages/login";
+import { PageTime } from "./pages/PageTime";
 
 /* ----------------------------- */
 /* Route Guards                  */
@@ -169,6 +170,14 @@ export function App() {
               <Settings />
             </PrivateRoute>
           }
+        />
+        <Route
+        path="/page-time"
+        element={
+          <PrivateRoute>
+            <PageTime/>
+          </PrivateRoute>
+        }
         />
 
         <Route

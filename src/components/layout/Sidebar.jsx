@@ -14,7 +14,8 @@ import {
   Settings,
   LogOut,
   Layers,
-  PieChart
+  PieChart,
+  Activity
 } from 'lucide-react';
 
 export function Sidebar() {
@@ -96,6 +97,11 @@ export function Sidebar() {
     {
       title: 'SYSTEM',
       items: [
+        {
+          name:'Page Time',
+          to:'/page-time',
+          icon:<Activity className="w-5 h-5" />
+        },
         {
           name: 'Audit Logs',
           to: '/audit-logs',
