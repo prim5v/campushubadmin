@@ -103,6 +103,11 @@ export function Sidebar() {
           icon:<Activity className="w-5 h-5" />
         },
         {
+          name: 'Admin CLI',
+          to: '/admin-cli',
+          icon: <FileText className="w-5 h-5" />
+        },
+        {
           name: 'Audit Logs',
           to: '/audit-logs',
           disabled: true,
