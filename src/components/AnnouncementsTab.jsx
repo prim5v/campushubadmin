@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Megaphone, Send } from 'lucide-react';
 import {
   Card,
@@ -26,6 +26,24 @@ export function AnnouncementsTab() {
     title: '',
     message: ''
   });
+  const [announcements, setAnnouncements] = useState([]);
+
+  useEffect(() => {
+    // Fetch announcements from backend on component mount
+    const fetchAnnouncements = async () => {
+      try {
+        const response = await axios.get(
+          "https://campushub4293.pythonanywhere.com/admin/recent_announcements"
+        );
+        setAnnouncements(response.data.announcements|| []);
+      } catch (error) {
+        console.error("Failed to fetch announcements:", error);
+      }
+    };
+
+    fetchAnnouncements();
+  }, []);
+
 
 
 
@@ -167,7 +185,7 @@ const handleSubmit = async (e) => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {mockAnnouncements.map((announcement) =>
+                {announcements.map((announcement) =>
                 <div
                   key={announcement.id}
                   className="p-4 rounded-lg border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors">
@@ -186,7 +204,7 @@ const handleSubmit = async (e) => {
                       </Badge>
                     </div>
                     <div className="mt-4 flex items-center justify-between text-xs text-slate-500">
-                      <span>{announcement.date}</span>
+                      <span>{announcement.sent_at || announcement.date}</span>
                       <div className="flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                         {announcement.status}
