@@ -22,6 +22,7 @@ import AdminPlans from "./pages/Plans";
 import Login from "./pages/login";
 import { PageTime } from "./pages/PageTime";
 import AdminCLI from "./pages/Admin Cli";
+import { CommunicationCenter } from "./pages/CommunicationCenter";
 
 /* ----------------------------- */
 /* Route Guards                  */
@@ -189,6 +190,15 @@ export function App() {
             </PrivateRoute>
           }
         />
+
+        <Route
+          path="/communications"
+          element={
+            <PrivateRoute>
+              <CommunicationCenter/>
+              </PrivateRoute>
+          }
+          />
 
         <Route
           path="/recent"

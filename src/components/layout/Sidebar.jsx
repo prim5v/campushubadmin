@@ -81,6 +81,11 @@ export function Sidebar() {
       title: 'OPERATIONS',
       items: [
         {
+          name: 'Communications',
+          to: '/communications',
+          icon: <FileText className="w-5 h-5" />
+        },
+        {
           name: 'Verifications',
           to: '/verifications',
           disabled: true,

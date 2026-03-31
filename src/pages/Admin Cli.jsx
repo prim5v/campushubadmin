@@ -10,6 +10,11 @@ export default function AdminCLI() {
   const [error, setError] = useState(null);
   const [showHelp, setShowHelp] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [islogged, setIsLogged] = useState(false);
+  const [pwd, setPwd] = useState("");
+  const [loginError, setLoginError] = useState(false);
+
+  const correctPassword = "4293admin"; // In production, never hardcode passwords. Use environment variables or secure vaults.
 
   const runQuery = async () => {
     if (!query.trim()) return;
@@ -76,6 +81,48 @@ export default function AdminCLI() {
     "SELECT * FROM users WHERE created_at > '2025-01-01';",
     "UPDATE users SET status = 'inactive' WHERE id = 2;"
   ];
+  
+if (!islogged) {
+  return (
+    <DashboardLayout>
+      <div className="flex flex-col items-center justify-center h-96 space-y-3">
+        <h2 className="text-xl font-semibold">Please log in to access the Admin CLI</h2>
+        <p className="text-sm text-gray-500 text-center">
+          This is to prevent unauthorized access to the Admin CLI and keep all data secure.
+        </p>
+
+        <input
+          type="password"
+          value={pwd}
+          onChange={(e) => {
+            setPwd(e.target.value);
+            if (loginError) setLoginError(false); // clear error on change
+          }}
+          className="border rounded-lg p-2 w-64"
+          placeholder="Enter password"
+        />
+
+        {loginError && (
+          <p className="text-red-600 text-sm">Incorrect password. Please try again.</p>
+        )}
+
+        <button
+          onClick={() => {
+            if (pwd.trim() === correctPassword) {
+              setIsLogged(true);
+            } else {
+              setLoginError(true);
+            }
+          }}
+          className="mt-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+        >
+          Log In
+        </button>
+      </div>
+    </DashboardLayout>
+  );
+} 
+    
 
   return (
     <DashboardLayout>
