@@ -78,7 +78,8 @@ export function Dashboard() {
     total_users,
     active_listings,
     total_revenue,
-    pending_verifications
+    pending_verifications,
+    waitlist_count: waitlistCount
   } = overview.overview;
 
   const {
@@ -147,6 +148,19 @@ export function Dashboard() {
           }}
           color="rose"
         />
+        
+      <StatCard
+        title="Waitlist Signups"
+        value={waitlistCount}
+        icon={<Users className="w-6 h-6" />}
+        trend={{
+          value: overview.analytics_percent_change.waitlist || 0,
+          label: 'vs last month',
+          positive: true
+        }}
+        color="purple"
+        onClick={() => navigate('/waitlist')}
+      />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

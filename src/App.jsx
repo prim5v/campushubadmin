@@ -23,6 +23,7 @@ import Login from "./pages/login";
 import { PageTime } from "./pages/PageTime";
 import AdminCLI from "./pages/Admin Cli";
 import { CommunicationCenter } from "./pages/CommunicationCenter";
+import { WaitlistPage } from "./pages/WaitlistPage";
 
 /* ----------------------------- */
 /* Route Guards                  */
@@ -53,6 +54,7 @@ function PublicRoute({ children }) {
 export function App() {
   return (
     <Router>
+      
       <Routes>
 
         {/* Public */}
@@ -217,6 +219,15 @@ export function App() {
             </PrivateRoute>
           }
         />
+
+        <Route
+          path="/waitlist"
+          element={<PrivateRoute>
+              <WaitlistPage />
+            </PrivateRoute>
+            } 
+            />
+
 
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />

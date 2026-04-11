@@ -7,7 +7,8 @@ export function StatCard({
   value,
   icon,
   trend,
-  color = 'indigo'
+  color = 'indigo',
+  onClick
 }) {
   const colorStyles = {
     indigo: 'bg-indigo-50 text-indigo-600',
@@ -18,7 +19,7 @@ export function StatCard({
   };
 
   return (
-    <div className="bg-white overflow-hidden rounded-lg border border-slate-200 shadow-sm p-5">
+    <div className="bg-white overflow-hidden rounded-lg border border-slate-200 shadow-sm p-5"  onClick={onClick}>
       <div className="flex items-center">
         <div className={`flex-shrink-0 rounded-md p-3 ${colorStyles[color]}`}>
           {icon}
