@@ -288,6 +288,7 @@ export function Listings() {
                   <option value="rented">Rented</option>
                   <option value="booked">Booked</option>
                   <option value="matched">Matched</option>
+                  <option value="upcoming">Upcoming</option>
                 </select>
               </div>
 
